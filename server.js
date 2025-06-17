@@ -7,14 +7,19 @@ const pizzaSchema = require("./validation/pizzaSchema");
 app.use(cors());
 app.use(express.json()); // to parse JSON bodies
 
-// Simple root route to confirm backend is running
+// Root route with message and link to JSON endpoint
 app.get("/", (req, res) => {
-  res.send("Pizza backend API is running.");
+  res.send(`
+    <h1>Pizza backend API is running.</h1>
+    <p>Go to the <a href="/api/pizzas">Pizza JSON</a> to see all pizzas.</p>
+  `);
 });
+
 
 app.get("/api/pizzas", (req, res) => {
   res.json(pizzas);
 });
+
 
 app.post("/api/pizzas", (req, res) => {
   const { error, value } = pizzaSchema.validate(req.body);
